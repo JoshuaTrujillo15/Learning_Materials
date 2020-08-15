@@ -8,3 +8,5 @@ ALSO: These are notes! Do not plug these files (such as shell scripts) directly 
 
 Credit is given for each document when due,
 and links are included when applicable!
+
+P.S. Please forgive any strange inconsistencies in this repository due to transitioning from an old github account and from windows to linux. :)
