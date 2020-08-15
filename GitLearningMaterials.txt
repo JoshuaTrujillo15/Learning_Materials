@@ -1,0 +1,62 @@
+//Git Learning Materials
+//Credit Colt Steele, thank you!
+//https://www.youtube.com/watch?v=USjZcfj8yxE&t=5s
+//August 8, 2020
+
+git --version
+//returns version info
+
+//configure name and email
+git config --global user.name "Joshua Trujillo"
+git config --global user.email "Jtriley15@gmail.com"
+//NOT login, only tracks local repositories
+
+//two kinds of repositories: Local and Remote
+
+git init
+//initializes new repository
+//hidden .git directory stores all internal tracking data for current repository
+ls 
+//returns files and folders
+ls-a 
+//returns hidden files and folders
+
+touch index.html //create new file
+git status //untracked files
+
+//move to staging area
+git add index.html
+
+//commit from staging area
+git commit -m "Create index.html"
+
+git status //tree clean
+git log
+
+touch app.js
+touch styles.css
+open index.html
+git add index.html app.js
+git commit -m "add app logic"
+git add . //adds all
+git commit -m "basic styles"
+
+git checkout <commit hash> //returns to previous commit based on hash input
+
+//branch is timeline of commits
+//separate branches good for ideas off of branch Master
+
+git branch //lists branches
+git checkout master //back to master branch
+git branch crazycolors //creates new branch
+git checkout crazycolors
+//edit stuff
+git add styles.css
+git commit -m "New Color stuff"
+//NOT on branch Master
+
+git merge crazycolors //merges to branch Master
+
+git branch -d crazycolors //deletes branches
+
+

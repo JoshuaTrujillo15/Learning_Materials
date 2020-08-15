@@ -1,0 +1,41 @@
+//Github Learning Materials
+//Credit: Colt Steele, thank you!
+//https://www.youtube.com/watch?v=nhNq2kIvi9s&t=47s
+//August 8, 2020
+
+//create new repository
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin <url>
+git push -u origin master //only need -u tag first time push
+git remote -v //returns "origin"
+//checks if you have permission to commit
+
+git pull origin master //origin is url, master is branch
+git checkout -b relaxing //switch to new branch 'relaxing'
+git status //on branch relaxing
+git add playlists.txt
+git commit -m "add relaxing songs"
+git push -u origin relaxing //adds to relaxing branch
+
+//do not clone repo into new repo
+cd ..
+mkdir DeepFake
+cd DeepFake
+git clone <url of deep fake repo>
+
+//fork repo
+//clone the fork
+git clone <url>
+//change stuff
+git status
+git add <changed file>
+git commit -m "comment on the changed file"
+git remote -v
+git push -u origin master
+//pull request
+//read guidelines
+//add comment
+
+//Spoon Knife?

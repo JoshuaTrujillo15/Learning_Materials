@@ -1,0 +1,76 @@
+/*SQLite Learning Materials
+CREATED BY: Joshua Trujillo
+CREATED ON: 08/05/2020
+DESCRIPTION: Commands with comments to learn SQLite
+CREDIT: SQL QuickStart Guide by Walter Shields, thank you!
+*/
+
+
+SELECT
+	*
+FROM
+	albums;
+--Selects all fields from sTunes database, albums table
+
+
+SELECT
+	FirstName,
+	LastName,
+	Email
+FROM
+	customers;
+--Selects names and emails from customers
+
+SELECT
+	FirstName AS 'First Name',
+	LastName AS [Last Name],
+	Email AS EMAIL
+	Phone CELL
+FROM
+	customers;
+--Same as above (approx) but uses alias (AS) for aesthetic reasons; if alias >1 word, need single quote or brackets '' []
+
+--INNER JOIN joins only matching fields between tables
+--LEFT OUTER JOIN (LEFT JOIN) joins all left with only matching right fields
+--RIGHT OUTER JOIN (RIGHT JOIN) Not supported in SQLite, opposite LEFT JOIN
+
+--three tables joined
+SELECT
+	e.FirstName,
+	e.LastName,
+	e.EmployeeId,
+	c.FirstName,
+	c.LastName,
+	c.SupportRepId,
+	i.CustomerId,
+	i.Total
+FROM
+	invoices AS i
+INNERJOIN
+	customers AS c
+ON
+	i.CustomerId = c.CustomerId
+INNER JOIN
+	employees AS e
+ON
+	c.SupportRepId = e.EmployeeId
+ORDER BY
+	i.Total DESC
+LIMIT
+	10
+	
+--Return artists without albums
+SELECT
+	ar.ArtistId AS [Artist ArtistId],
+	al.ArtistId AS [Album ArtistId],
+	ar.Name AS [Artist Name],
+	al.Title AS [Album Title]
+FROM
+	artists as ar
+LEFT JOIN
+	albums as al
+ON
+	ar.ArtistId = al.ArtistId
+WHERE
+	al.ArtistId IS NULL
+	
