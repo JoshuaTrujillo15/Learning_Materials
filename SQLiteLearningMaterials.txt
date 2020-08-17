@@ -5,12 +5,76 @@ DESCRIPTION: Commands with comments to learn SQLite
 CREDIT: SQL QuickStart Guide by Walter Shields, thank you!
 */
 
+/*
+FUNCTIONS
 
+String:
+INSTR()
+LENGTH()
+LOWER()
+REPLACE()
+RTRIM()
+SUBSTR()
+TRIM()
+UPPER()
+||
+
+Date:
+DATE()
+DATETIME()
+JULIANDAY()
+STRFTIME()
+TIME()
+'NOW'
+
+Aggregate:
+AVG()
+COUNT()
+MAX()
+MIN()
+SUM()
+*/
+
+
+
+/*
+ARGS FOR STRFTIME()
+
+Format:
+'%x' replace x with appropriate letter
+d day of month 00
+f fractional seconds SS.SSS
+H hour 00-24
+j day of year 001-366
+J julian day number
+m month 01-12
+M minute 00-59
+s seconds since 1970-01-01
+S seconds 00-59
+w day oof week 0-6 (sunday==0)
+W week of the year 00-53
+Y year 0000-9999
+
+Timestring:
+'YYYY-MM-DD' date
+'now' current date and time
+'DATETIME' field Database field in a date and/or time format
+
+Modifier:
+'+ X days' add X=numDays to result
+'+ X months' add X=numMonths
+'+ X years' add X=numYears
+'- X days'/months/years
+'start of the day' modifies time code to represent start of day
+'start of the month'
+'start of the year'
+*/
 SELECT
 	*
 FROM
 	albums;
 --Selects all fields from sTunes database, albums table
+
 
 
 SELECT
@@ -21,6 +85,8 @@ FROM
 	customers;
 --Selects names and emails from customers
 
+
+
 SELECT
 	FirstName AS 'First Name',
 	LastName AS [Last Name],
@@ -30,9 +96,13 @@ FROM
 	customers;
 --Same as above (approx) but uses alias (AS) for aesthetic reasons; if alias >1 word, need single quote or brackets '' []
 
+
+
 --INNER JOIN joins only matching fields between tables
 --LEFT OUTER JOIN (LEFT JOIN) joins all left with only matching right fields
 --RIGHT OUTER JOIN (RIGHT JOIN) Not supported in SQLite, opposite LEFT JOIN
+
+
 
 --three tables joined
 SELECT
@@ -58,7 +128,9 @@ ORDER BY
 	i.Total DESC
 LIMIT
 	10
-	
+
+
+
 --Return artists without albums
 SELECT
 	ar.ArtistId AS [Artist ArtistId],
@@ -74,3 +146,61 @@ ON
 WHERE
 	al.ArtistId IS NULL
 	
+
+
+--COUNT() function
+--counts number of last names starting with B
+SELECT
+	COUNT(LastName) AS [Name Count]
+FROM 
+	customers
+WHERE 
+	LastName LIKE 'B%'
+
+
+
+--Conatenation
+SELECT
+	FirstName || ' ' || LastName AS [Name],
+	Address || ', ' || City || ', ' || State || ' ' || PostalCode AS [MailingAddress]
+FROM
+	customers
+WHERE
+	country = 'USA'
+
+
+
+--substrings index 1
+--SUBSTR (X,Y); SUBSTR (X,Y,Z);
+--x (str) string, starting with y (int), z (int) characters long
+SELECT
+	PostalCode,
+	SUBSTR(PostalCode,1,5) AS [Five Digit Postal Code]
+FROM
+	customers
+WHERE
+	country = 'USA'
+
+
+
+--UPPER() str to uppercase
+--LOWER() str to lowercase
+--STRFTIME(format, timestring, modifier, modifier, ...) str format time function
+--'NOW' timestring for currernt time
+
+
+
+SELECT
+	STRFTIME('The year is: %Y The day is: %d The month is: %m, '2011-05-22') AS [Text with Conversion Specifications]
+
+
+
+SELECT
+	LastName,
+	FirstName,
+	STRFTIME('%Y-%m-%d,BirthDate) AS [Birthday No Timecode],
+	STRFTIME('%Y-%m-%d,now) - STRFTIME('%Y-%m-%d,BirthDate) AS [Age]
+FROM
+	employees
+ORDER BY
+	Age
