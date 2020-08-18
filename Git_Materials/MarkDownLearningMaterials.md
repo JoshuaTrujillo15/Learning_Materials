@@ -1,6 +1,9 @@
 #Markdown Learning Materials
+
 ##Sub Heading
+
 This is a simple markdown file for learning :)
+
 Credit to [Steve Griffith](https://www.youtube.com/watch?v=eJojC3lSkwg&t=437s), thank you!
 
 Two returns create a proper line break
