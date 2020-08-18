@@ -69,6 +69,9 @@ Modifier:
 'start of the month'
 'start of the year'
 */
+
+
+
 SELECT
 	*
 FROM
@@ -96,6 +99,41 @@ FROM
 	customers;
 --Same as above (approx) but uses alias (AS) for aesthetic reasons; if alias >1 word, need single quote or brackets '' []
 
+
+
+--Arithmetic
+SELECT
+	Total AS 'Original Amount',
+	Total + 10 AS 'Addition',
+	Total - 10 AS 'Subtraction',
+	Total * 10 AS 'Multiplication',
+	Total / 10 AS 'Division',
+	Total % 10 AS 'Modulo'
+FROM
+	invoices
+ORDER BY
+	Total DESC;
+
+
+
+
+--Selects invoices with 2 purchases of .99 (1.89)
+SELECT
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	Total
+FROM
+	invoices
+WHERE
+	Total=1.98
+ORDER BY
+	InvoiceDate
+--WHERE: '=' for one value, IN() for multiple
+
+
+
+--WHERE LIKE 'T% starts with; '%T' ends with; '%T%' anywhere; 'T%T' starts and ends with;
 
 
 --INNER JOIN joins only matching fields between tables
@@ -204,3 +242,67 @@ FROM
 	employees
 ORDER BY
 	Age
+
+
+
+--ROUND(x,y) x=num; y=digitsAfterDecimal
+--WHERE filters data
+--HAVING filters aggregate funtion data (After GROUP BY only)
+SELECT
+	BillingCity,
+	ROUND(AVG(Total),2)
+FROM
+	invoices
+WHERE 
+	BillingCity LIKE 'L%'
+GROUP BY
+	BillingCity
+HAVING
+	AVG(Total > 5)
+ORDER BY
+	BillingCity
+--selects from invoices, groups city averages with total sales greater than 5, ordered by city
+
+
+
+--GROUP BY works with multiple fields
+--First  by country, then city
+SELECT
+	BillingCountry,
+	BillingCity,
+	AVG(Total)
+FROM
+	invoices
+GROUP BY
+	BillingCountry, BillingCity
+ORDER BY
+	BillingCountry
+
+
+
+--Review excersize
+--Single-line mailing list, US customers, capitalized full name, full address, 5 digit zip
+--EXAMPLE: FRANK HARRIS 1600 Amphitheater Parkway, Mountain View, CA 94043
+SELECT
+	UPPER(FirstName)|| ' ' || UPPER(LastName) || ' ' || Address || ', ' || City || ', ' || State || ' ' || SUBSTR(PostalCode,1,5)
+FROM
+	customers
+WHERE
+	Country LIKE 'USA'
+
+
+
+--Top 10 customers of all time by revenue
+SELECT
+	c.FirstName || ' ' || c.LastName AS 'Name'
+	SUM(i.Total) AS 'Total Revenue'
+FROM
+	customers AS c
+INNER JOIN
+	invoices AS i
+ON
+	c.CustomerId = i.CustomerId
+ORDER BY 
+	SUM(i.Total) DESC
+LIMIT
+	10
