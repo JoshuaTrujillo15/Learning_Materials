@@ -72,6 +72,7 @@ Modifier:
 
 
 
+----------------------------------------------------------------------------------------------------
 SELECT
 	*
 FROM
@@ -80,6 +81,7 @@ FROM
 
 
 
+----------------------------------------------------------------------------------------------------
 SELECT
 	FirstName,
 	LastName,
@@ -90,6 +92,7 @@ FROM
 
 
 
+----------------------------------------------------------------------------------------------------
 SELECT
 	FirstName AS 'First Name',
 	LastName AS [Last Name],
@@ -101,6 +104,7 @@ FROM
 
 
 
+----------------------------------------------------------------------------------------------------
 --Arithmetic
 SELECT
 	Total AS 'Original Amount',
@@ -117,6 +121,7 @@ ORDER BY
 
 
 
+----------------------------------------------------------------------------------------------------
 --Selects invoices with 2 purchases of .99 (1.89)
 SELECT
 	InvoiceDate,
@@ -128,14 +133,13 @@ FROM
 WHERE
 	Total=1.98
 ORDER BY
-	InvoiceDate
+	InvoiceDate;
 --WHERE: '=' for one value, IN() for multiple
-
-
-
 --WHERE LIKE 'T% starts with; '%T' ends with; '%T%' anywhere; 'T%T' starts and ends with;
 
 
+
+----------------------------------------------------------------------------------------------------
 --INNER JOIN joins only matching fields between tables
 --LEFT OUTER JOIN (LEFT JOIN) joins all left with only matching right fields
 --RIGHT OUTER JOIN (RIGHT JOIN) Not supported in SQLite, opposite LEFT JOIN
@@ -165,10 +169,11 @@ ON
 ORDER BY
 	i.Total DESC
 LIMIT
-	10
+	10;
 
 
 
+----------------------------------------------------------------------------------------------------
 --Return artists without albums
 SELECT
 	ar.ArtistId AS [Artist ArtistId],
@@ -182,7 +187,7 @@ LEFT JOIN
 ON
 	ar.ArtistId = al.ArtistId
 WHERE
-	al.ArtistId IS NULL
+	al.ArtistId IS NULL;
 	
 
 
@@ -193,10 +198,11 @@ SELECT
 FROM 
 	customers
 WHERE 
-	LastName LIKE 'B%'
+	LastName LIKE 'B%';
 
 
 
+----------------------------------------------------------------------------------------------------
 --Conatenation
 SELECT
 	FirstName || ' ' || LastName AS [Name],
@@ -204,10 +210,11 @@ SELECT
 FROM
 	customers
 WHERE
-	country = 'USA'
+	country = 'USA';
 
 
 
+----------------------------------------------------------------------------------------------------
 --substrings index 1
 --SUBSTR (X,Y); SUBSTR (X,Y,Z);
 --x (str) string, starting with y (int), z (int) characters long
@@ -217,10 +224,11 @@ SELECT
 FROM
 	customers
 WHERE
-	country = 'USA'
+	country = 'USA';
 
 
 
+----------------------------------------------------------------------------------------------------
 --UPPER() str to uppercase
 --LOWER() str to lowercase
 --STRFTIME(format, timestring, modifier, modifier, ...) str format time function
@@ -241,10 +249,11 @@ SELECT
 FROM
 	employees
 ORDER BY
-	Age
+	Age;
 
 
 
+----------------------------------------------------------------------------------------------------
 --ROUND(x,y) x=num; y=digitsAfterDecimal
 --WHERE filters data
 --HAVING filters aggregate funtion data (After GROUP BY only)
@@ -260,11 +269,12 @@ GROUP BY
 HAVING
 	AVG(Total > 5)
 ORDER BY
-	BillingCity
+	BillingCity;
 --selects from invoices, groups city averages with total sales greater than 5, ordered by city
 
 
 
+----------------------------------------------------------------------------------------------------
 --GROUP BY works with multiple fields
 --First  by country, then city
 SELECT
@@ -276,10 +286,11 @@ FROM
 GROUP BY
 	BillingCountry, BillingCity
 ORDER BY
-	BillingCountry
+	BillingCountry;
 
 
 
+----------------------------------------------------------------------------------------------------
 --Review excersize
 --Single-line mailing list, US customers, capitalized full name, full address, 5 digit zip
 --EXAMPLE: FRANK HARRIS 1600 Amphitheater Parkway, Mountain View, CA 94043
@@ -288,10 +299,11 @@ SELECT
 FROM
 	customers
 WHERE
-	Country LIKE 'USA'
+	Country LIKE 'USA';
 
 
 
+----------------------------------------------------------------------------------------------------
 --Top 10 customers of all time by revenue
 SELECT
 	c.FirstName || ' ' || c.LastName AS 'Name'
@@ -305,4 +317,105 @@ ON
 ORDER BY 
 	SUM(i.Total) DESC
 LIMIT
-	10
+	10;
+
+
+
+----------------------------------------------------------------------------------------------------
+--SUBQUERIES--
+
+--Aggregate Functions
+--Compares selected totals to (average of totals)
+SELECT
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	Total
+FROM
+	invoices
+WHERE
+	Total < (select
+			AVG(Total)
+		from
+			invoices)
+ORDER BY
+	Total DESC;
+
+
+
+----------------------------------------------------------------------------------------------------
+--Subquery in SELECT statement
+--main query groups city averages; subquery returns global average alongside city average
+SELECT
+	BillingCity,
+	ROUND(AVG(Total),2) AS [City Average],
+	(select
+		round(avg(total),2)
+	from
+		invoices) AS [Global Average]
+FROM
+	invoices
+GROUP BY
+	BillingCity
+ORDER BY
+	BillingCity
+
+
+
+----------------------------------------------------------------------------------------------------
+--WHERE clause in subquery
+--find sales from 2013 that exceed the highest sale from 2009-2012
+SELECT
+	InvoiceDate,
+	BillingCity,
+	Total
+FROM
+	invoices
+WHERE
+	InvoiceDate >= '2013-01-01' AND Total >
+	(select
+		max(Total)
+	from
+		invoices
+	where
+		InvoiceDate < '2013-10-10');
+
+
+
+----------------------------------------------------------------------------------------------------
+--EXAMPLE
+--num of invoices on or before jan 1, 2010 above average amount
+SELECT
+	COUNT(Total) AS [Count]
+FROM
+	invoices
+WHERE
+	InvoiceDate <= '2010-01-01' AND Total > 
+	(select
+		avg(total)
+	from
+		invoices);
+
+
+
+----------------------------------------------------------------------------------------------------
+--Subqueries without aggregate functions
+--invoices received after InvoiceId 251
+SELECT
+	InvoiceDate,
+	BillingAddress,
+	BillingCity
+FROM
+	invoices
+WHERE
+	InvoiceDate > 
+	(select
+		InvoiceDate
+	from
+		invoices
+	where
+		InvoiceId = 251)
+
+
+
+----------------------------------------------------------------------------------------------------
