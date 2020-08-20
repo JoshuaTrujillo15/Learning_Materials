@@ -419,3 +419,56 @@ WHERE
 
 
 ----------------------------------------------------------------------------------------------------
+--subquery with multiple returns
+--returns invoices from same day as 251,252,255
+SELECT
+	InvoiceDate,
+	BillingAddress,
+	BillingCity
+FROM
+	invoices
+WHERE
+	InvoiceDate IN
+	(select
+		InvoiceDate
+	from 
+		invoices
+	where
+		InvoiceId in (251,252,255))
+
+
+
+----------------------------------------------------------------------------------------------------
+--DISTINCT clause omits repeats 
+--returns tracks not sold on any invoices
+SELECT
+	TrackId,
+	Composer,
+	Name
+FROM
+	tracks
+WHERE
+	TrackId NOT IN  
+	(select
+		distinct TrackId
+	from
+		invoice_items);
+		
+		
+		
+----------------------------------------------------------------------------------------------------
+--EXAMPLE count invoices in 2010 that are above average sale
+SELECT
+	COUNT(InvoiceId)
+FROM
+	invoices
+WHERE
+	InvoiceDate IN ('2010-01-01', '2011-01-01') AND Total >
+	(select
+		avg(Total)
+	from
+		invoices);
+
+
+
+--------------------------------------------------------------------------------------------
