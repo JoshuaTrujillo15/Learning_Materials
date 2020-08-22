@@ -472,3 +472,113 @@ WHERE
 
 
 --------------------------------------------------------------------------------------------
+--VIEWS: save query for repeatable queries/subqueries
+--SQLite no modifying; SQL Server supports editing views
+CREATE VIEW V_AvgTotal AS 
+SELECT
+	ROUND(AVG(Total),2) AS [Average Total]
+FROM
+	invoices
+
+--call view:
+SELECT
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	Total
+FROM
+	invoices
+WHERE
+	Total < 
+	(select
+		*
+	from
+		V_AvgTotal)
+ORDER BY
+	Total DESC;
+
+----------------------------------------------------------------------------------------------------
+--Call multiple VIEWS
+
+------
+CREATE VIEW V_Tracks_InvoiceItems AS
+SELECT
+	ii.InvoiceId
+	ii.UnitPrice
+	ii.Quantity
+	t.Name
+	t.Composer
+	t.Milliseconds
+FROM
+	invoice items ii
+INNER JOIN
+	tracks t
+ON
+	ii.TrackId = t.TrackId;
+-----
+CREATE VIEW V_inv_cus_emp AS
+SELECT
+	e.FirstName,
+	e.LastName,
+	e.EmployeeId,
+	c.FirstName,
+	c.LastName,
+	c.SupportRepId,
+	i.CustomerId,
+	i.Total
+FROM
+	invoices AS i
+INNERJOIN
+	customers AS c
+ON
+	i.CustomerId = c.CustomerId
+INNER JOIN
+	employees AS e
+ON
+	c.SupportRepId = e.EmployeeId
+ORDER BY
+	i.Total DESC
+LIMIT
+	10;
+-----
+SELECT
+	*
+FROM
+	V_Tracks_Invoice_Items ii
+INNER JOIN
+	V_inv_cus_emp ice
+ON
+	ii.InvoiceId = ice.InvoiceId;
+
+
+
+----------------------------------------------------------------------------------------------------
+--DELETING VIEW
+DROP VIEW
+	V_AvgTotal;
+
+
+
+----------------------------------------------------------------------------------------------------
+--Example
+CREATE VIEW V_Global_Average AS
+SELECT
+	AVG(Total)
+FROM
+	invoices;
+-----
+SELECT
+	BillingCity,
+	AVG(Total) AS [City Average],
+	V_Global_Average
+FROM
+	invoices
+GROUP BY
+	BillingCity
+ORDER BY
+	BillingCity
+
+
+
+----------------------------------------------------------------------------------------------------
+
