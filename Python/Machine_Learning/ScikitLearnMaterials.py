@@ -1,5 +1,8 @@
 #scikit learning materials
-#applications
+#NOTE: I do not have the dataset included in this example, so there may be typoes/errors due to lack of testing capabilities 
+#Video Credit: https://www.youtube.com/watch?v=0Lt9w-BxKFQ
+
+#applications:
 #Classification: spam detection
 #Regression: stock price prediction
 #Clustering: customer segmentation
