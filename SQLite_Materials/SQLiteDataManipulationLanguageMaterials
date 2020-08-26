@@ -1,0 +1,77 @@
+/*SQLite Data Manipulation Materials
+CREATED BY: Joshua Trujillo
+CREATED ON: 08/25/2020
+DESCRIPTION: Commands with comments to learn SQLite
+CREDIT: SQL QuickStart Guide by Walter Shields, thank you!
+*/
+
+--Data Manipulation Language
+
+
+
+----------------------------------------------------------------------------------------------------
+--INSERT
+
+INSERT INTO
+	artists(Name)
+VALUES
+	('Bob Marley');
+
+SELECT
+	Name,
+	ArtistId
+FROM
+	artists
+WHERE
+	Name = 'Bob Marley';
+
+
+
+----------------------------------------------------------------------------------------------------
+--List Items to be inserted sequentially
+
+INSERT INTO
+	employees
+VALUES
+	('9','Martin','Ricky','Sales Support Agent','2','1975-02-07','2018-01-05','123 Houston St','New York','NY','United States','11201','(555)-555-5555','rmartin@gmail.com');
+
+
+
+----------------------------------------------------------------------------------------------------
+--UPDATE: usually including WHERE clause
+UPDATE
+	employees
+SET
+	PostalCode = '11202'
+WHERE
+	Employeeid = 9;
+
+
+
+----------------------------------------------------------------------------------------------------
+--Example
+UPDATE
+	employees
+SET
+	Phone = '(555)-555-5556'
+WHERE
+	Name = 'Ricky Martin';
+
+
+
+----------------------------------------------------------------------------------------------------
+--DELETE
+--USE A WHERE CLAUSE 
+--verify data to be deleted with SELECT first
+SELECT
+	*
+FROM
+	employees
+WHERE
+	EmployeeId = 9;
+
+--then DELETE
+DELETE FROM
+	employees
+WHERE
+	EmployeeId = 9;
