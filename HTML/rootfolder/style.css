@@ -3,53 +3,84 @@
 	padding: 0;
 }
 
-body {
-	background-color: #eee;
-}
-
 .wrapper {
-	margin: 0 auto 0 60px;
-	width: 1000px;
-}
-
-.img-cyberpunk {
-	width: 300px;
-	height: 200px;
-	background-image: url(img/cyberpunk.jpg);
-	background-size: 100%;
-	background-repeat: no-repeat;
-	background-position: center;
-}
-
-.img-cyberpunk:hover {
-	background-size: 200%;
-}
-
-nav {
 	width: 100%;
-	height: 100px;
-	background-color: #fff
 }
 
-ul {
-	margin-left: 0;
+.img-banner {
+	display: none;
 }
 
-ul li {
-	list-style: none;
-	display: inline-block;
-	float: left;
-	line-height: 100px;
+.img-info {
+	width: 100%;
 }
 
-ul li a {
-	display: block;
-	text-decoration: none;
-	font-sie: 14px;
-	font-family: aral;
-	color: #1e1e1e;
-	padding: 0 20px;
+.img-info h2 {
+	padding: 30px 30px 20px;
+	font-family: arial;
+	font-size: 50px;
+	color: #111;
+	line-height: 44%
 }
-ul li a:hover {
-	color: red;
+
+.img-info p {
+	padding: 0px, 30px, 20px;
+	font-family: arial;
+	font-size: 16px;
+	color: #111;
+	line-height: 24px;
+}
+
+.img-me {
+	width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+	.img-banner {
+		display: block;
+		width: 100%;
+		padding-bottom: 30px;
+	}
+	
+	.wrapper {
+		width: 600px;
+		margin: 0 auto;
+	}
+	
+	.img-info h2 {
+		padding: 20px 0px 0px;
+	}
+	
+	.img-info p {
+		padding: 20px, 0px, 0px;
+	}
+	
+	.img-me {
+		padding-top: 30px;
+	}
+}
+
+@media only screen and (min-width: 1000px) {
+	.wrapper {
+		width: 1000px;
+	}
+	
+	.img-info {
+		width: 50%;
+		float: right;
+	}
+	
+	.img-info h2 {
+		padding: 20px, 0px, 0px, 30px;
+	}
+	
+	.img-info h2 {
+		padding: 20px, 0px, 0px, 30px;
+	}
+	
+	.img-me {
+		padding-top: 0px;
+		width: 50%;
+		float: left;
+	}
 }
