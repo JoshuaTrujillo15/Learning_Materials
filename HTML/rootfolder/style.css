@@ -1,86 +1,23 @@
+/*-----MY CODE-----*/
 * {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
-.wrapper {
-	width: 100%;
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
-.img-banner {
-	display: none;
+.title {
+    grid-area: title;
 }
 
-.img-info {
-	width: 100%;
+
+.grid div:nth-child(even) {
+    background-color: red;
 }
 
-.img-info h2 {
-	padding: 30px 30px 20px;
-	font-family: arial;
-	font-size: 50px;
-	color: #111;
-	line-height: 44%
-}
-
-.img-info p {
-	padding: 0px, 30px, 20px;
-	font-family: arial;
-	font-size: 16px;
-	color: #111;
-	line-height: 24px;
-}
-
-.img-me {
-	width: 100%;
-}
-
-@media only screen and (min-width: 768px) {
-	.img-banner {
-		display: block;
-		width: 100%;
-		padding-bottom: 30px;
-	}
-	
-	.wrapper {
-		width: 600px;
-		margin: 0 auto;
-	}
-	
-	.img-info h2 {
-		padding: 20px 0px 0px;
-	}
-	
-	.img-info p {
-		padding: 20px, 0px, 0px;
-	}
-	
-	.img-me {
-		padding-top: 30px;
-	}
-}
-
-@media only screen and (min-width: 1000px) {
-	.wrapper {
-		width: 1000px;
-	}
-	
-	.img-info {
-		width: 50%;
-		float: right;
-	}
-	
-	.img-info h2 {
-		padding: 20px, 0px, 0px, 30px;
-	}
-	
-	.img-info h2 {
-		padding: 20px, 0px, 0px, 30px;
-	}
-	
-	.img-me {
-		padding-top: 0px;
-		width: 50%;
-		float: left;
-	}
+.grid div:nth-child(odd) {
+    background-color: green;
 }
