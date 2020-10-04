@@ -50,3 +50,89 @@ age = undefined; //assigns
 let x;
 typeof x;
 typeof(x); //returns type of arg
+
+alert('hello'); //pop up alert
+let result = prompt(title);
+
+let internet_explorer_prompt =  prompt('word', ''); //for I.E. always use optional default parameter
+
+let confirmation = confirm('question');
+alert( confirmation ); //true if OK is pressed
+
+//string conversion
+let value = true;
+alert(typeof value); //boolean
+value = String(value)
+alert(typeof value); //string
+
+//numeric conversion
+str = '123';
+alert(typeof str); //string
+let num = Number(str);
+alert(typeof num); //num
+
+age = Number('an arbtrary string instead of num');
+alert(typeof age); //returns NaN, conversion error
+
+alert(Number('  123  ')); //123
+alert(Number('123z')); //NaN (z failed conversion)
+alert(Number(true)); //1
+alert(Number(false)); //0
+
+//boolean conversion
+alert(Boolean(1)); //true
+alert(Boolean(0)); //false
+alert(Boolean('hello')); //non empty string ALWAYS returns true (even '0')
+alert(Boolean('')); //empty string, NaN, null, and undefined return false
+
+//basic operators, mathS
+x = 1;
+x = -x;
+alert(x); //-1 unary negation applied
+
+/*
+
++ addition
+- subtraction
+* multiplication
+/ division
+% modulo
+** exponentiation
+
+*/
+
+//string concatenation with binary +
+let s = 'my ' + 'string';
+alert(s);
+
+alert( '1' + 2 ); //'12' string
+alert( 1 + '2' ); //'21' string
+alert(2 + 2 + '1'); //returns '41' NOT '221'
+
+//ONLY + converts to string when one operand is string
+//other operators convert to number if possible
+
+//+ unary NO effect on nums, converts other values to num
+//+ unary SAME as Number()
+let y = -2;
+alert(+y); //-2
+
+//chain assignment
+
+let a, b, c
+a = b = c = 2 + 2; //all values assigned 4
+
+a += 2; //<--this works in JS :)
+
+a++; //<--this also works :)
+
+/*
+BITWISE
+& AND
+| OR
+^ XOR
+~ NOT
+<< LEFT SHIFT
+>> RIGHT SHIFT
+>>> ZERO-FILL RIGHT SHIFT
+*/
