@@ -193,6 +193,193 @@ echo(rand());
 echo(rand(10, 100)); // between 10 an 100 inclusive
 
 
+//----CONSTANTS-----//
+
+//define(name, value, case_insensitive[boolean]);
+define('SENTINEL', 15, true);
+echo SENTINEL;
+
+define('cars', ['Tesla','Volvo','BMW']);
+echo cars[0];
+
+//automatically global
+function constantTest() {
+    echo SENTINEL;
+}
+
+
+//-----OPERATORS-----//
+/*
+
+Logical
+
+and, &&
+or, ||
+xor
+! 
+
+*/
+
+
+//-----SWITCH-----//
+
+$fav_color = 'purple';
+switch($fav_color) {
+    case 'red':
+        echo 'Your favorite color is red!';
+        break;
+    case 'purple':
+        echo 'Your favorite color is purple!';
+        break;
+    default:
+        echo 'Your favorite color is neither red nor purple!';
+}
+
+
+//-----LOOPS-----//
+
+//while
+$while_iter = 1;
+
+while($while_iter <= 5) {
+    echo 'The num is: $while_iter<br>';
+    $while_iter++;
+}
+
+//do
+$do_iter = 1;
+
+do {
+    echo 'The number is $do_iter';
+    $do_iter++;
+} while ($do_iter <= 5);
+
+//for
+for ($for_iter = 0; $for_iter <= 10; $x++) {
+    echo 'The number is $for_iter';
+}
+
+//foreach [only array iteration]
+$color_arr = array('red','green','blue');
+
+foreach ($color_arr as $value) {
+    echo 'The color is $value <br>';
+}
+
+//-----ARRAYS-----//
+
+//sort
+$num_arr = array(1, 3, 2, 7, 4, 9, 5, 7);
+$associative_arr = array('bob'=> 5 ,'alice'=> 5 ,'eve'=> 7); //array(key=>value, key=>value)
+sort($num_arr); //ascending order
+rsort($num_arr); //descending order
+asort($associative_arr); //ascending by value
+rsort($associative_arr); //ascending by key
+arsort($associative_arr); //descending by value
+krsort($associative_arr); //descending by key
+
+//-----SUPER GLOBALS-----//
+
+//$GLOBALS access global variables anywhere
+$global_var = 4;
+function needsGlobal() {
+    echo $GLOBALS['global_var']
+}
+needsGlobal();
+
+//$_SERVER info about headers, paths, and script locations
+echo $_SERVER['PHP_SHELF']; //filename of current script
+echo <br>
+echo $_SERVER['SERVER_NAME']; //name, ex: webdev1.rennapps.xyz
+echo "<br>";
+echo $_SERVER['SERVER_ADDR']; //ip address
+echo "<br>";
+echo $_SERVER['HTTP_HOST']; //host header from current request
+echo "<br>";
+echo $_SERVER['HTTP_REFERER']; //complete url of current page
+echo "<br>";
+echo $_SERVER['HTTP_USER_AGENT']; //user agent
+echo "<br>";
+echo $_SERVER['SCRIPT_NAME']; //pathname of current script
+
+/*
+$_REQUEST contains contents of $_GET, $_POST, and $_COOKIE;
+
+$_GET and $_POST create associative array.
+    Key = form control
+    Value = user input
+
+$_GET passed to script via url params
+    Visible to everyone, displayed in url, possible to bookmark page, about 2000char limit
+    NON SENSITIVE DATA ONLY
+
+$_POST passed to current script via HTTP POST
+    Not visible to everyone, no size limit
+    Can use for passwords
+
+*/
+
+//-----REGULAR EXPRESSIONS-----//
+
+//regular expression
+$exp = "/john/i"; // delimiter '/', param 'i'
+
+$str = "Hello my name is John";
+
+//preg_match() returns 1 if pattern found, else 0
+$pattern = '/john/i';
+echo preg_match($pattern, $str); // 1
+
+//preg_match_all() returns num of times pattern found, else 0
+$pattern = '/m/i';
+echo preg_match_all($pattern, $str); // 2
+
+//preg_replace() replace substring
+$pattern = '/john/i';
+echo preg_replace($pattern, 'Bob', $str); // Hello, my name is Bob;
+
+/*
+Modifiers: 
+    i : case insensitive
+    m : multiline search
+    u: enable correct matching of utf-8 encoded patterns
+
+Patterns:
+    [abc] : one character from options between brackets
+    [^abc] : any character NOT between brackets
+    [0-9] : one character from the range of 0 to 9
+
+Metacharacters:
+    | : find match for any one of patterns separated by it example( cat|dog|fish )
+    . : find just one instance of any char
+    ^ : finds a match as the beginning of string example( ^Hello )
+    $ : fins match at end of string example( World$ )
+    \d : finds digit
+    \s : finds whitespace char
+    \b : find match at beginning of a word or at end of word
+    \uxxxx : find unicode char specified by hex num
+
+Quantifiers
+    n+ : matches any str with at least one n
+    n* : matches str with zero or more occurances of n
+    n? : matches str with zero or one occurance of n
+    n{x} : matches str with x num of n's
+    n{x,y} : matches str with x to y num of n's
+    n{x,} : matches str with x or more num of n's
+*/
+
+//Grouping ( )
+$str = "Apples and bananas.";
+$pattern = "/ba(na){2}/i"; // ba na na 
+echo preg_match($pattern, $str); // 1
+
+
+//------------------------------SECURITY------------------------------//
+//LITERALLY THE MOST IMPORTANT PART OF THIS ENTIRE THING
+//htmlspecialchars()
+//function to thwart XSS and SQLi attacks. 
+//------------------------------SECURITY------------------------------//
+
 //-----SCOPE-----//
 
 //Global
