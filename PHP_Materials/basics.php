@@ -431,6 +431,114 @@ myTestFourBecauseFourReallyIsNotThatBadOfANumber();
 myTestFourBecauseFourReallyIsNotThatBadOfANumber();
 //variable stores value even after function executed
 
+//-----DATE AND TIME-----//
+
+//date(format, timestamp)
+echo date("Y/m/d"); //2020/10/16
+echo date("Y-m-d"); //2020-10-16
+echo date("l"); //Friday
+
+//automatic copyright year
+//&copy; 2010-<?php echo date("Y");\?\>
+
+//time
+/*
+H : 24hr hour (00 to 23)
+h : 12hr hour (01 to 12)
+i : minutes w leading zeros (00 to 59)
+s : seconds w leading zeros (00 to 59)
+a : lowercase am or pm
+*/
+echo date("h:i:sa"); //12:24:59pm
+
+//RETURNS DATE TIME OF SERVER
+//Get time zone
+date_default_timezone_set("America/New York");
+echo date("h:i:sa");
+
+//mktime(hour, minute, second, month, day, year)
+$d = mktime(11, 14, 54, 8, 12, 2014);
+echo date("Y-m-d h:i:sa"); //2014-08-12 11:14:54am
+
+//strtotime(time, now)
+$d=strtotime("10:30pm April 15 2014");
+echo "Created date is " . date("Y-m-d h:i:sa", $d);
+
+//weird strtotime things
+//output dates for next sic saturdays
+$start_date = strtotime("Saturday");
+$end_date = strtotime("+6 weeks", $start_date);
+
+while ($start_date < $end_date) {
+    echo date("M d", $start_date) . "<br>";
+    $start_date = strtotime("+1 week", $start_date);
+}
+
+//dates until July 4
+$d1=strtotime("July 04");
+$d2=ceil(($d1-time())/60/60/24);
+echo "There are " . $d2 ." days until 4th of July.";
+
+//-----FILES-----//
+
+//readfile()
+echo readfile("webdictionary.txt");
+
+//fopen() more options than readfile()
+$myfile = fopen("webdictionary.txt", "r") or die("Unable to open file!");
+echo fread($myfile, filesize("webdictionary.txt")); //fread(file_name, max_bytes_to_read)
+fclose($myfile);
+
+//feof() check if end of file has been reached
+$myfile = fopen("webdictionary.txt", "r") or die("Unable to open file!");
+//Output one line until end of file
+while(!feof($myfile)) {
+    echo fgets($myfile) . "<br>"; //reads line from pointer location
+}
+fclose($myfile);
+//fgets() for line, fgetc() for char
+
+//fwrite() write to file
+$myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
+$txt = "John Doe\nJane Doe\n";
+fwrite($myfile, $txt);
+fclose($myfile);
+
+//-----COOKIES-----//
+
+//setcookie(name, value, expire, path, domain, secure, httponly); only name required
+
+//BEFORE HTML TAG
+$cookie_name = "user";
+$cookie_value = "john Doe";
+setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); //86400 = 1day; "/" makes available to whole website
+
+//<html>
+//<body>
+//<?php
+if(!isset($_COOKIE[$cookie_name])) {
+    echo "Cookie named '" . $cookie_name . "' is not set!";
+} else {
+    echo "Cookie named '" . $cookie_name . "' is set!";
+    echo "Value is: " . $_COOKIE[$cookie_name];
+}
+//?\>
+//</body>
+//</html>
+
+//TO MODIFY COOKIE
+//setcookie() again
+
+//TO DELETE COOKIE
+//setcookie("user", "", time() - 3600); //sets expiration to past
+
+//CHECK IF COOKIES ENABLED
+//setcookie()
+//if(count($_COOKIE) > 0) {
+    //echo "cookies enabled";
+//}
+
+
 
 ?>
 
